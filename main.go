@@ -20,6 +20,31 @@ func (t *table) initialize(n int) { //盤面の初期化
 	}
 }
 
+func (t *table) init_galaxy() {
+	g := [...][]int{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0},
+		{0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0},
+		{0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+		{0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+		{0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0},
+		{0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0},
+		{0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
+	for i := 0; i < len(g); i++ {
+		t.fields = append(t.fields, make([]bool, len(g)))
+		for j := 0; j < len(g[0]); j++ {
+			t.fields[i][j] = itob(g[i][j])
+		}
+	}
+}
+
 func (t *table) height() int { //高さを取得するメソッド
 	return len(t.fields)
 }
@@ -49,6 +74,14 @@ func btoi(b bool) int { //boolを01に変換する関数
 		return 1
 	} else {
 		return 0
+	}
+}
+
+func itob(i int) bool {
+	if i != 0 {
+		return true
+	} else {
+		return false
 	}
 }
 
@@ -123,7 +156,8 @@ func next_generation(t *table) table {
 
 func main() {
 	t := &table{}
-	t.initialize(25)
+	// t.initialize(20)
+	t.init_galaxy()
 
 	running := true
 
